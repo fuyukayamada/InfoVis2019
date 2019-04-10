@@ -1,0 +1,77 @@
+<html>
+<head>
+<title>W02: Task 1</title>
+</head>
+<body>
+<script src="vec3.js"></script>
+
+A: x<input type="tel" name="x01" id="x02"/>
+y<input type="tel" name="y01" id="y02"/>
+z<input type="tel" name="z01" id="z02"/>
+<br>
+B: x<input type="tel" name="x11" id="x12"/>
+y<input type="tel" name="y11" id="y12"/>
+z<input type="tel" name="z11" id="z12"/>
+<br>
+C: x<input type="tel" name="x21" id="x22"/>
+y<input type="tel" name="y21" id="y22"/>
+z<input type="tel" name="z21" id="z22"/>
+<input type="button" value="input" onclick="clickBtn1()">
+<br>Answer:
+<br><div id="output"></div>
+<script>
+var x0, y0, z0;
+var x1, y1, z1;
+var x2, y2, z2;
+</script>
+<script>
+
+function AreaOfTriangle(ve0, ve1, ve2){
+//define A, B
+var ax = ve1.x - ve0.x;
+var ay = ve1.y - ve0.y;
+var az = ve1.z - ve0.z;
+
+var bx = ve2.x - ve0.x;
+var by = ve2.y - ve0.y;
+var bz = ve2.z - ve0.z;
+
+//define gaiseki G
+var gx = ay*bz - az*by;
+var gy = az*bx - ax*bz;
+var gz = ax*by - ay*bx;
+
+//culcurate area
+var sq = gx*gx + gy*gy + gz*gz;
+//document.write(sq);
+var root = Math.sqrt(sq);
+var S = root/2;
+return S;
+}
+
+function clickBtn1(){
+  //target = document.getElementById("output");
+  //        target.innerText = x02.value;
+  x0 = x02.value;
+  y0 = y02.value;
+  z0 = z02.value;
+  x1 = x12.value;
+  y1 = y12.value;
+  z1 = z12.value;
+  x2 = x22.value;
+  y2 = y22.value;
+  z2 = z22.value;
+
+var v0 = new Vec3(x0, y0, z0);
+var v1 = new Vec3(x1, y1, z1);
+var v2 = new Vec3(x2, y2, z2);
+var S = AreaOfTriangle(v0, v1, v2);
+target = document.getElementById("output");
+        target.innerText = S;
+//document.write(S);
+
+
+}
+</script>
+</body>
+</html>
