@@ -1,0 +1,19 @@
+<html>
+  <head>
+      <body>
+        <script src=“three.min.js”></script>
+        <script>
+        var camera = new THREE.OrthographicCamera(
+          left, // Camera frustum left plane
+          right, // Camera frustum right plane
+          top, // Camera frustum top plane
+          bottom,// Camera frustum bottom plane
+          near, // Camera frustum near plane
+          far // Camera frustum far plane
+        );
+        camera.position.set( x, y, z );
+        scene.add( camera );
+        </script>
+      </body>
+  </head>
+</html>
