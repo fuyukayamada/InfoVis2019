@@ -78,40 +78,24 @@ function main()
     geometry.faces.push( f10 );
     geometry.faces.push( f11 );
 
-/* -------- 2 -------- */
-/*
-    id = faces[1];
-    var f1 = new THREE.Face3( id[0], id[1], id[2] );
-    var geometry2 = new THREE.Geometry();
-    geometry2.vertices.push( v0 );
-    geometry2.vertices.push( v2 );
-    geometry2.vertices.push( v3 );
-    geometry2.faces.push( f1 );
-*/
-
-    //var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-    //var material = new THREE.MeshLambertMaterial( { color: 0xaa5588 } );
-
 
     var material = new THREE.MeshBasicMaterial();
     material.vertexColors = THREE.FaceColors;
 
-    geometry.faces[0].color = new THREE.Color( 0, 1, 0 );//green
-    geometry.faces[1].color = new THREE.Color( 0, 1, 0 );
-    geometry.faces[2].color = new THREE.Color( 0.5, 1, 0.5 );
-    geometry.faces[3].color = new THREE.Color( 0.5, 1, 0.5 );
-    geometry.faces[4].color = new THREE.Color( 0, 0, 1 );//brue
-    geometry.faces[5].color = new THREE.Color( 0, 0, 1 );
-    geometry.faces[6].color = new THREE.Color( 0.5, 0.5, 1 );
-    geometry.faces[7].color = new THREE.Color( 0.5, 0.5, 1 );
-    geometry.faces[8].color = new THREE.Color( 1, 0, 0 );//red
-    geometry.faces[9].color = new THREE.Color( 1, 0, 0 );
-    geometry.faces[10].color = new THREE.Color( 1, 0.5, 0.5 );
-    geometry.faces[11].color = new THREE.Color( 1, 0.5, 0.5 );
+    geometry.faces[0].color = new THREE.Color( 0.7, 1, 0.7 );//green
+    geometry.faces[1].color = new THREE.Color( 0.7, 1, 0.7 );
+    geometry.faces[2].color = new THREE.Color( 0.7, 1, 0.5 );
+    geometry.faces[3].color = new THREE.Color( 0.7, 1, 0.5 );
+    geometry.faces[4].color = new THREE.Color( 0.7, 0.7, 1 );//brue
+    geometry.faces[5].color = new THREE.Color( 0.7, 0.7, 1 );
+    geometry.faces[6].color = new THREE.Color( 0.5, 0.7, 1 );
+    geometry.faces[7].color = new THREE.Color( 0.5, 0.7, 1 );
+    geometry.faces[8].color = new THREE.Color( 1, 0.5, 0.7 );//red
+    geometry.faces[9].color = new THREE.Color( 1, 0.5, 0.7 );
+    geometry.faces[10].color = new THREE.Color( 1, 0.5, 0.7 );
+    geometry.faces[11].color = new THREE.Color( 1, 0.5, 0.7 );
 
-
-
-    scene.add( material )
+    //scene.add( material )
 
     var cube = new THREE.Mesh( geometry, material );
     scene.add( cube );
@@ -119,6 +103,51 @@ function main()
     var light = new THREE.PointLight( 0xffffff );
     light.position.set( 1, 1, 1 );
     scene.add( light );
+//...
+ //...
+
+    document.addEventListener( 'mousedown', mouse_down_event );
+
+    function mouse_down_event( event )
+    {
+      var x_win = event.clientX;
+      var y_win = event.clientY;
+
+      var vx = renderer.domElement.offsetLeft;
+      var vy = renderer.domElement.offsetTop;
+      var vw = renderer.domElement.width;
+      var vh = renderer.domElement.height;
+      var x_NDC = 2 * ( x_win - vx ) / vw - 1;
+      var y_NDC = -( 2 * ( y_win - vy ) / vh - 1 );
+
+      var p_NDC = new THREE.Vector3( x_NDC, y_NDC, 1 );
+      var p_wld = p_NDC.unproject( camera );
+
+      var origin = camera.position;
+      var direction = p_wld.sub(camera.position).normalize();
+
+      var raycaster = new THREE.Raycaster( origin, direction );
+      var intersects = raycaster.intersectObject( cube );
+
+      if ( intersects.length > 0 )
+        {
+          intersects[0].face.color.setRGB( 1, 1, 1 );
+          intersects[0].object.geometry.colorsNeedUpdate = true;
+        }
+
+      var x_win = event.clientX;
+      var y_win = event.clientY;
+
+      var vx = renderer.domElement.offsetLeft;
+      var vy = renderer.domElement.offsetTop;
+      var vw = renderer.domElement.width;
+      var vh = renderer.domElement.height;
+      var x_NDC = 2 * ( x_win - vx ) / vw - 1;
+      var y_NDC = -( 2 * ( y_win - vy ) / vh - 1 );
+
+      var p_NDC = new THREE.Vector3( x_NDC, y_NDC, 1 );
+      var p_wld = p_NDC.unproject( camera );
+    }
 
     loop();
 
