@@ -1,0 +1,48 @@
+<html>
+<head>
+<title>W02: Example 08</title>
+</head>
+<body>
+x0<input type="tel" name="x01" id="x02"/>
+y0<input type="tel" name="y01" id="y02"/>
+z0<input type="tel" name="z01" id="z02"/>
+<br>
+x1<input type="tel" name="x11" id="x12"/>
+y1<input type="tel" name="y11" id="y12"/>
+z1<input type="tel" name="z11" id="z12"/>
+<br>
+x2<input type="tel" name="x21" id="x22"/>
+y2<input type="tel" name="y21" id="y22"/>
+z2<input type="tel" name="z21" id="z22"/>
+<input type="button" value="input" onclick="clickBtn1()">
+<br>Answer:
+<br><div id="output"></div>
+<script>
+var x0, y0, z0;
+var x1, y1, z1;
+var x2, y2, z2;
+</script>
+<script>
+function clickBtn1(){
+  target = document.getElementById("output");
+          target.innerText = x02.value;
+  x0 = x02.value;
+  y0 = y02.value;
+  z0 = z02.value;
+  x1 = x12.value;
+  y1 = y12.value;
+  z1 = z12.value;
+  x2 = x22.value;
+  y2 = y22.value;
+  z2 = z22.value;
+
+var v0 = new Vec3(x0, y0, z0);
+var v1 = new Vec3(x1, y1, z1);
+var v1 = new Vec3(x2, y2, z2);
+
+  //document.write(sample2.value)
+}
+//document.write(sample2);
+</script>
+</body>
+</html>
