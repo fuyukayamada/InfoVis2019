@@ -1,12 +1,16 @@
 function Isosurfaces( volume, isovalue )
 {
     var geometry = new THREE.Geometry();
-    var material = new THREE.MeshLambertMaterial();
-    material.vertexColors = THREE.VertexColors;
+    var material = new THREE.ShaderMaterial({
+    vertexColors: THREE.VertexColors,
+    vertexShader: document.getElementById('blinn_phong.vert').text,
+    fragmentShader: document.getElementById('blinn_phong.frag').text,
+});
 
     var smin = volume.min_value;
     var smax = volume.max_value;
     isovalue = KVS.Clamp( isovalue, smin, smax );
+
 
 
     // ---- create cmap ---------------------------------
