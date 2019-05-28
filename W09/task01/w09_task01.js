@@ -14,7 +14,7 @@ function main()
 
 
 
-    var isovalue = 50;
+    var isovalue = 128;
     var surfaces = Isosurfaces( volume, isovalue );
     screen.scene.add( surfaces );
 
