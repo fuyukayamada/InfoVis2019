@@ -1,11 +1,19 @@
-function Isosurfaces( volume, isovalue )
+function Isosurfaces( volume, isovalue, lobster_color, shader )
 {
     var geometry = new THREE.Geometry();
-    var material = new THREE.ShaderMaterial({
-    vertexColors: THREE.VertexColors,
-    vertexShader: document.getElementById('blinn_phong.vert').text,
-    fragmentShader: document.getElementById('blinn_phong.frag').text,
-});
+//    var a = document.getElementById(shader+'vert').text;
+    if (shader == 'Normal'){
+        var material = new THREE.MeshNormalMaterial();
+    }
+    
+    else{
+        var material = new THREE.ShaderMaterial({
+        vertexColors: THREE.VertexColors,
+        vertexShader: document.getElementById(shader+'.vert').text,
+        //vertexShader: a,
+        fragmentShader: document.getElementById('Shader.frag').text,
+    });
+}
 
     var smin = volume.min_value;
     var smax = volume.max_value;
@@ -75,9 +83,9 @@ function Isosurfaces( volume, isovalue )
                     geometry.faces.push( new THREE.Face3( id0, id1, id2 ) );
                     //geometry.faces.color = new THREE.Color( 0.7, 1, 0.7 );//green
                     //geometry.faces[geometry.faces.length -1].vertexColors.push(new THREE.Color().setHex( cmap[ isovalue ][1] ));
-                    geometry.faces[geometry.faces.length -1].vertexColors.push(new THREE.Color().setHex( cmap[ isovalue ][1]));
-                    geometry.faces[geometry.faces.length -1].vertexColors.push(new THREE.Color().setHex( cmap[ isovalue ][1]));
-                    geometry.faces[geometry.faces.length -1].vertexColors.push(new THREE.Color().setHex( cmap[ isovalue ][1]));
+                    geometry.faces[geometry.faces.length -1].vertexColors.push(new THREE.Color( lobster_color ));
+                    geometry.faces[geometry.faces.length -1].vertexColors.push(new THREE.Color( lobster_color ));
+                    geometry.faces[geometry.faces.length -1].vertexColors.push(new THREE.Color( lobster_color ));
 
                 }
             }
@@ -87,9 +95,6 @@ function Isosurfaces( volume, isovalue )
     }
 
     geometry.computeVertexNormals();
-
-    //material.color = new THREE.Color().setHex( cmap[100][1] );
-    //geometry.faces[50].vertexColors.push(new THREE.Color("blue"));
 
     return new THREE.Mesh( geometry, material );
 
